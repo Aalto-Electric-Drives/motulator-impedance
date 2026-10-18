@@ -79,8 +79,8 @@ The results are dataclasses, which can be saved, e.g., by `scipy.io.savemat(path
 
 ## References
 
-1. S. Hartikainen, L. Tiitinen, M. Laine, and M. Hinkkanen, "Identification of mechanical impedance of an electric machine drive for drivetrain design," *Proc. IEEE IEMDC*, 2023, https://doi.org/10.1109/IEMDC55163.2023.10238992
-1. J. Määttä, J. Kukkola, M. Seppänen, and M. Hinkkanen, "Open-source Python tool for grid converter output admittance identification," 2026, https://arxiv.org/abs/2607.10653
+1. Hartikainen, Tiitinen, Laine, Hinkkanen, "Identification of mechanical impedance of an electric machine drive for drivetrain design," Proc. IEEE IEMDC, 2023, https://doi.org/10.1109/IEMDC55163.2023.10238992
+1. Määttä, Kukkola, Seppänen, Hinkkanen, "Open-source Python tool for grid converter output admittance identification," 2026, https://arxiv.org/abs/2607.10653
 
 ## License
 

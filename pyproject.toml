@@ -1,0 +1,91 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "motulator-impedance"
+version = "0.1.0"
+dependencies = [
+    "motulator>=0.15.0,<0.16",
+    "numpy",
+    "scipy",
+    "matplotlib",
+]
+requires-python = ">=3.12"
+authors = [
+    {name = "Marko Hinkkanen", email = "marko.hinkkanen@aalto.fi"}
+]
+description = "Mechanical impedance of machine drives and output admittance of grid converters for motulator"
+readme = "README.md"
+license = "MIT"
+keywords = [
+    "admittance",
+    "control",
+    "converter",
+    "drive",
+    "frequency response",
+    "impedance",
+    "motor",
+    "passivity",
+    "simulation",
+    "stability",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "pyright",
+    "pytest",
+    "ruff",
+]
+doc = [
+    "myst-parser",
+    "numpydoc",
+    "sphinx",
+    "sphinx-autoapi",
+    "sphinx-book-theme",
+    "sphinx-copybutton",
+    "sphinx-gallery",
+    "sphinxcontrib-bibtex",
+]
+
+[project.urls]
+Homepage = "https://github.com/Aalto-Electric-Drives/motulator-impedance"
+Documentation = "https://aalto-electric-drives.github.io/motulator-impedance/"
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "PL", "UP"]
+ignore = ["PLR2004"]  # Ignore magic value warnings
+pylint = {max-args = 14}
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+skip-magic-trailing-comma = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "motulator_impedance"]
+addopts = "--doctest-modules"
+
+[tool.pyright]
+include = ["motulator_impedance", "tests", "examples"]
+venvPath = "."
+venv = ".venv"
+exclude = [
+    "**/__pycache__",
+    "**/.pytest_cache",
+]
+typeCheckingMode = "standard"

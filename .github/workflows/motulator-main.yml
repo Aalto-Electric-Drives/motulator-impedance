@@ -1,0 +1,26 @@
+name: Tests with motulator main
+
+# Runs the tests weekly against the main branch of motulator, so that changes in
+# motulator that break this package are noticed before they are released
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * 1'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v7
+      with:
+        python-version: '3.12'
+    - name: Install motulator from its main branch and the package without dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install "motulator @ git+https://github.com/Aalto-Electric-Drives/motulator@main" pytest
+        pip install --no-deps -e .
+    - name: Run tests
+      run: pytest

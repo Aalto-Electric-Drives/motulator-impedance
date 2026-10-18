@@ -1,0 +1,39 @@
+repos:
+
+  # Generic
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-toml
+      - id: check-yaml
+
+  # Ruff formatter & linter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.0
+    hooks:
+    - id: ruff
+      args: [--fix]
+      name: ruff (linter)
+    - id: ruff-format
+      name: ruff (formatter)
+
+  # Pyright
+  - repo: https://github.com/RobertCraigie/pyright-python
+    rev: v1.1.414
+    hooks:
+      - id: pyright
+        additional_dependencies: [motulator, numpy, scipy, matplotlib, pytest, sphinx-gallery]
+        args:
+        - --venvpath=./.venv
+
+  # MyST Markdown formatter
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 1.0.0
+    hooks:
+      - id: mdformat
+        name: mdformat (MyST)
+        additional_dependencies:
+          - mdformat-myst
+        types_or: [markdown]

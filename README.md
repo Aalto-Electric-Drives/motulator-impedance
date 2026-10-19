@@ -2,22 +2,24 @@
 
 **Mechanical impedance of machine drives and output admittance of grid converters for [motulator](https://github.com/Aalto-Electric-Drives/motulator)**
 
+[![PyPI version](https://img.shields.io/pypi/v/motulator-impedance.svg)](https://pypi.org/project/motulator-impedance/)
+
 Documentation: https://aalto-electric-drives.github.io/motulator-impedance/
 
 This package measures small-signal frequency responses of systems built in *motulator* by frequency sweeps: the system is simulated to its operating point, a small-signal excitation is injected one frequency at a time, and the response is computed with the discrete Fourier transform. The frequencies are simulated in parallel. Two responses are provided:
 
-- **Mechanical impedance** $Z_\mathrm{M}(s) = -\Delta\tau_\mathrm{M}(s)/\Delta\omega_\mathrm{M}(s)$ of a machine drive, which describes the dynamics of the machine and its control system as seen from the shaft [1]. The rotor speed is imposed, and speed excitations are superimposed on it. A drive whose mechanical impedance is passive (its phase within ±90°) is stable with any passive mechanical system.
+- **Mechanical impedance** <i>Z</i><sub>M</sub>(<i>s</i>) = −Δ<i>τ</i><sub>M</sub>(<i>s</i>)/Δ<i>ω</i><sub>M</sub>(<i>s</i>) of a machine drive, which describes the dynamics of the machine and its control system as seen from the shaft [1]. The rotor speed is imposed, and speed excitations are superimposed on it. A drive whose mechanical impedance is passive (its phase within ±90°) is stable with any passive mechanical system.
 - **Output admittance** of a grid converter at the point of common coupling [2], as a 2×2 matrix in synchronous coordinates. The PCC voltage is imposed by a stiff source, and voltage excitations are injected in the d- and q-axes. The admittance is the basis of impedance-based stability analysis, e.g., through its passivity index.
-
-**Status:** The package is in early development, and its interfaces may change before version 1.0. It currently supports *motulator* 0.15, and the support is extended after each new release of *motulator* has been tested.
 
 ## Installation
 
-The package is not yet on PyPI. Install it from a clone (*motulator* is installed as a dependency):
+Install the package from PyPI (*motulator* is installed as a dependency):
 
 ```bash
-pip install -e .
+pip install motulator-impedance
 ```
+
+The package supports *motulator* 0.15, and the support is extended after each new release of *motulator* has been tested. For development, clone the repository and install the package with `pip install -e .[dev]`.
 
 ## Usage
 

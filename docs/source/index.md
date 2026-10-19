@@ -7,10 +7,6 @@ This package measures small-signal frequency responses of systems built in [*mot
 
 This documentation covers only the measurements. The system models and control methods are described in the [documentation of *motulator*](https://aalto-electric-drives.github.io/motulator/).
 
-```{note}
-The package is in early development, and its interfaces may change before version 1.0. It currently supports *motulator* 0.15, and the support is extended after each new release of *motulator* has been tested.
-```
-
 ```{toctree}
 ---
 titlesonly:

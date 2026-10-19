@@ -31,7 +31,6 @@ keywords = [
     "stability",
 ]
 classifiers = [
-  "Development Status :: 3 - Alpha",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",

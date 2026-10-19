@@ -1,0 +1,60 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 50,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "maattaj11",
+      "name": "Juho Määttä",
+      "avatar_url": "https://avatars.githubusercontent.com/u/165767331?v=4",
+      "profile": "https://github.com/maattaj11",
+      "contributions": [
+        "code",
+        "example",
+        "ideas"
+      ]
+    },
+    {
+      "login": "HannuHar",
+      "name": "Hannu Hartikainen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/96597650?v=4",
+      "profile": "https://github.com/HannuHar",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "lauritapio",
+      "name": "Lauri Tiitinen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/85596019?v=4",
+      "profile": "https://github.com/lauritapio",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "mhinkkan",
+      "name": "Marko Hinkkanen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/76600872?v=4",
+      "profile": "https://research.aalto.fi/en/persons/marko-hinkkanen",
+      "contributions": [
+        "code",
+        "ideas",
+        "example",
+        "mentoring"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "motulator-impedance",
+  "projectOwner": "Aalto-Electric-Drives",
+  "commitType": "docs"
+}

@@ -8,8 +8,8 @@ Documentation: https://aalto-electric-drives.github.io/motulator-impedance/
 
 This package measures small-signal frequency responses of systems built in *motulator* by frequency sweeps: the system is simulated to its operating point, a small-signal excitation is injected one frequency at a time, and the response is computed with the discrete Fourier transform. The frequencies are simulated in parallel. Two responses are provided:
 
-- **Mechanical impedance** <i>Z</i><sub>M</sub>(<i>s</i>) = −Δ<i>τ</i><sub>M</sub>(<i>s</i>)/Δ<i>ω</i><sub>M</sub>(<i>s</i>) of a machine drive, which describes the dynamics of the machine and its control system as seen from the shaft [1]. The rotor speed is imposed, and speed excitations are superimposed on it. A drive whose mechanical impedance is passive (its phase within ±90°) is stable with any passive mechanical system.
-- **Output admittance** of a grid converter at the point of common coupling [2], as a 2×2 matrix in synchronous coordinates. The PCC voltage is imposed by a stiff source, and voltage excitations are injected in the d- and q-axes. The admittance is the basis of impedance-based stability analysis, e.g., through its passivity index.
+- **Mechanical impedance** <i>Z</i><sub>M</sub>(<i>s</i>) = −Δ<i>τ</i><sub>M</sub>(<i>s</i>)/Δ<i>ω</i><sub>M</sub>(<i>s</i>) of a machine drive, which describes the dynamics of the machine and its control system as seen from the shaft [[1]](#references). The rotor speed is imposed, and speed excitations are superimposed on it. A drive whose mechanical impedance is passive (its phase within ±90°) is stable with any passive mechanical system.
+- **Output admittance** of a grid converter at the point of common coupling [[2]](#references), as a 2×2 matrix in synchronous coordinates. The PCC voltage is imposed by a stiff source, and voltage excitations are injected in the d- and q-axes. The admittance is the basis of impedance-based stability analysis, e.g., through its passivity index.
 
 ## Installation
 
@@ -21,7 +21,9 @@ source .venv/bin/activate
 pip install motulator-impedance
 ```
 
-On Windows, the environment is created and activated with `py -m venv .venv` and `.venv\Scripts\activate`. The package supports *motulator* 0.15 and 0.16, and the support is extended after each new release of *motulator* has been tested. For development, clone the repository and install the package with `pip install -e .[dev]`.
+On Windows, the environment is created and activated with `py -m venv .venv` and `.venv\Scripts\activate`.
+
+For development, clone the repository and install the package with `pip install -e ".[dev]"`.
 
 ## Usage
 
@@ -91,6 +93,27 @@ The results are dataclasses, which can be saved, e.g., by `scipy.io.savemat(path
 1. Hartikainen, Tiitinen, Laine, Hinkkanen, "Identification of mechanical impedance of an electric machine drive for drivetrain design," Proc. IEEE IEMDC, 2023, https://doi.org/10.1109/IEMDC55163.2023.10238992
 1. Määttä, Kukkola, Seppänen, Hinkkanen, "Open-source Python tool for grid converter output admittance identification," 2026, https://arxiv.org/abs/2607.10653
 
-## License
+## Contributors
 
-MIT
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
+<!-- prettier-ignore-start -->
+
+<!-- markdownlint-disable -->
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/maattaj11"><img src="https://avatars.githubusercontent.com/u/165767331?v=4?s=50" width="50px;" alt="Juho Määttä"/><br /><sub><b>Juho Määttä</b></sub></a><br /><a href="https://github.com/Aalto-Electric-Drives/motulator-impedance/commits?author=maattaj11" title="Code">💻</a> <a href="#example-maattaj11" title="Examples">💡</a> <a href="#ideas-maattaj11" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/HannuHar"><img src="https://avatars.githubusercontent.com/u/96597650?v=4?s=50" width="50px;" alt="Hannu Hartikainen"/><br /><sub><b>Hannu Hartikainen</b></sub></a><br /><a href="https://github.com/Aalto-Electric-Drives/motulator-impedance/commits?author=HannuHar" title="Code">💻</a> <a href="#ideas-HannuHar" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/lauritapio"><img src="https://avatars.githubusercontent.com/u/85596019?v=4?s=50" width="50px;" alt="Lauri Tiitinen"/><br /><sub><b>Lauri Tiitinen</b></sub></a><br /><a href="https://github.com/Aalto-Electric-Drives/motulator-impedance/commits?author=lauritapio" title="Code">💻</a> <a href="#ideas-lauritapio" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://research.aalto.fi/en/persons/marko-hinkkanen"><img src="https://avatars.githubusercontent.com/u/76600872?v=4?s=50" width="50px;" alt="Marko Hinkkanen"/><br /><sub><b>Marko Hinkkanen</b></sub></a><br /><a href="https://github.com/Aalto-Electric-Drives/motulator-impedance/commits?author=mhinkkan" title="Code">💻</a> <a href="#ideas-mhinkkan" title="Ideas, Planning, & Feedback">🤔</a> <a href="#example-mhinkkan" title="Examples">💡</a> <a href="#mentoring-mhinkkan" title="Mentoring">🧑‍🏫</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->

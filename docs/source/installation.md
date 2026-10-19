@@ -4,33 +4,21 @@ The package requires Python 3.12 or newer. The installation of *motulator* and i
 
 ## Option 1: Use pip
 
-Install the package with `pip` in a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/), which keeps the package and its dependencies separate from other Python projects. Some Linux distributions, such as Debian, do not allow installing packages into the system Python with `pip` at all. Create and activate the environment in your project folder. On Linux and macOS:
+The simplest way to install the package is to use `pip` in a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/). On Linux and macOS:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-```
-
-On Windows:
-
-```bat
-py -m venv .venv
-.venv\Scripts\activate
-```
-
-Then, install the package:
-
-```bash
 pip install motulator-impedance
 ```
 
-The environment must be activated again in each new terminal.
+On Windows, the environment is created and activated with `py -m venv .venv` and `.venv\Scripts\activate`.
 
 ## Option 2: Clone the Repository
 
 For developers and advanced users, cloning the repository is recommended. The following instructions are for [VS Code](https://code.visualstudio.com):
 
-1. Install VS Code, Python, and `git` on your computer. Install also the recommended extensions in VS Code.
+1. Install VS Code, Python, and `git` on your computer. Install also the Python extension in VS Code.
 
 1. Clone the project using the command:
 
@@ -45,7 +33,7 @@ For developers and advanced users, cloning the repository is recommended. The fo
 1. Install the package with its optional dependencies in the VS Code terminal, after the virtual environment is created and activated:
 
    ```bash
-   pip install -e .[dev,doc]
+   pip install -e ".[dev,doc]"
    ```
 
    The `dev` dependencies are needed for the tests and the code checks and the `doc` dependencies for building this documentation.

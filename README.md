@@ -13,13 +13,15 @@ This package measures small-signal frequency responses of systems built in *motu
 
 ## Installation
 
-Install the package from PyPI (*motulator* is installed as a dependency):
+Install the package from PyPI in a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) (*motulator* is installed as a dependency). On Linux and macOS:
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
 pip install motulator-impedance
 ```
 
-The package supports *motulator* 0.15, and the support is extended after each new release of *motulator* has been tested. For development, clone the repository and install the package with `pip install -e .[dev]`.
+On Windows, the environment is created and activated with `py -m venv .venv` and `.venv\Scripts\activate`. The package supports *motulator* 0.15, and the support is extended after each new release of *motulator* has been tested. For development, clone the repository and install the package with `pip install -e .[dev]`.
 
 ## Usage
 
@@ -45,13 +47,16 @@ ctrl = control.VHzControlSystem(control.ObserverBasedVHzController(par, cfg))
 ctrl.set_speed_ref(40.0)
 
 meas_cfg = drive.MeasurementCfg(abs_w_e=0.3, freqs=np.geomspace(1, 500, 50))
-Z_M = drive.measure_mechanical_impedance(mdl, ctrl, meas_cfg)
-drive.plot_mechanical_impedance(Z_M)
+
+if __name__ == "__main__":  # Needed for the parallel processes, see Scope
+    Z_M = drive.measure_mechanical_impedance(mdl, ctrl, meas_cfg)
+    drive.plot_mechanical_impedance(Z_M)
 ```
 
 The output admittance of a grid converter:
 
 ```python
+import numpy as np
 from motulator.grid import control, model
 
 from motulator_impedance import grid
@@ -67,15 +72,17 @@ ctrl.set_power_ref(5e3)
 ctrl.set_reactive_power_ref(0.0)
 
 meas_cfg = grid.MeasurementCfg(abs_u_e=3.0, freqs=np.geomspace(1, 10e3, 100))
-Y = grid.measure_output_admittance(mdl, ctrl, meas_cfg)
-grid.plot_output_admittance(Y, form="re_im")
+
+if __name__ == "__main__":
+    Y = grid.measure_output_admittance(mdl, ctrl, meas_cfg)
+    grid.plot_output_admittance(Y, form="re_im")
 ```
 
 The results are dataclasses, which can be saved, e.g., by `scipy.io.savemat(path, dataclasses.asdict(Y))`. Complete examples are in the [example gallery](https://aalto-electric-drives.github.io/motulator-impedance/examples/index.html).
 
 ## Scope
 
-- The frequencies are simulated in parallel processes by default (`multiprocess=True`), so the model and the control system must be picklable: use module-level functions or callable objects as references, not lambda functions.
+- The frequencies are simulated in parallel processes by default (`multiprocess=True`), so the model and the control system must be picklable: use module-level functions or callable objects as references, not lambda functions. In a script, call the measurement under `if __name__ == "__main__":`, since the processes import the script again on Windows and macOS, as well as on Linux from Python 3.14 onward. In the interactive interpreter, use `multiprocess=False`.
 - With carrier-comparison PWM, background switching harmonics can bias the measured admittance near the switching harmonics and their sidebands.
 - The grid impedance and the DC bus of the system model are included in the operating point; the admittance is measured with the PCC voltage imposed.
 

@@ -21,7 +21,10 @@ def grid_frequency(t: float) -> float:
 
 
 def system(
-    u_dc: float | None = 650, w_g: float | Callable[[float], float] = W_NOM
+    u_dc: float | None = 650,
+    w_g: float | Callable[[float], float] = W_NOM,
+    pwm: bool = False,
+    single_update: bool = False,
 ) -> model.GridConverterSystem:
     """Grid converter system, fed by a DC bus if `u_dc` is None."""
     converter = model.VoltageSourceConverter(u_dc=u_dc)
@@ -31,6 +34,8 @@ def system(
         model.LFilter(L_f=0.2 * L_BASE),
         model.ThreePhaseSource(w_g=w_g, e_g=U_NOM),
         dc_bus=dc_bus,
+        pwm=pwm,
+        single_update=single_update,
     )
 
 
@@ -99,3 +104,41 @@ def test_operating_point_at_changed_grid_frequency() -> None:
     res = grid.measure_output_admittance(mdl, ctrl, meas_cfg)
     assert abs(res.u_g0) == pytest.approx(U_NOM, rel=0.01)
     assert res.Y_dd[0] == pytest.approx(1 / (2j * np.pi * res.f_e[0] * L_f), rel=0.05)
+
+
+def test_measurement_model_keeps_pwm_settings() -> None:
+    """The model of the measurement has the PWM settings of the system model."""
+    mdl = system(pwm=True, single_update=True)
+    cfg = control.CurrentVectorControllerCfg(i_max=30, L=0.2 * L_BASE, T_s=1e-4)
+    ctrl = control.GridConverterControlSystem(control.CurrentVectorController(cfg))
+    ctrl.set_power_ref(5e3)
+    ctrl.set_reactive_power_ref(0.0)
+    meas_cfg = grid.MeasurementCfg(abs_u_e=0.05 * U_NOM, t0=0.02)
+    mdl_inj, *_ = grid._operating_point(mdl, ctrl, meas_cfg)
+    assert mdl_inj.single_update
+    assert type(mdl_inj.pwm) is type(mdl.pwm)
+
+
+def test_parallel_sweep_equals_serial() -> None:
+    """The frequencies simulated in parallel processes give the serial results."""
+    mdl = system()
+    cfg = control.CurrentVectorControllerCfg(i_max=30, L=0.2 * L_BASE, T_s=1e-4)
+    ctrl = control.GridConverterControlSystem(control.CurrentVectorController(cfg))
+    ctrl.set_power_ref(5e3)
+    ctrl.set_reactive_power_ref(0.0)
+    serial, parallel = (
+        grid.measure_output_admittance(
+            mdl,
+            ctrl,
+            grid.MeasurementCfg(
+                abs_u_e=0.05 * U_NOM,
+                freqs=np.array([500.0, 2e3]),
+                t0=0.1,
+                t1=0.02,
+                multiprocess=multiprocess,
+            ),
+        )
+        for multiprocess in (False, True)
+    )
+    for Y in ("Y_dd", "Y_qd", "Y_dq", "Y_qq"):
+        np.testing.assert_allclose(getattr(parallel, Y), getattr(serial, Y), rtol=1e-9)

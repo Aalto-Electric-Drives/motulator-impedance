@@ -124,13 +124,12 @@ autoapi_keep_files = True
 autoapi_add_toctree_entry = False
 autoapi_member_order = "alphabetical"
 
-from sphinx_gallery.sorting import ExplicitOrder, NumberOfCodeLinesSortKey
-
+# The sort keys are given as a list and a string, since Sphinx cannot cache objects
 sphinx_gallery_conf = {
     "examples_dirs": ["../../examples"],
     "gallery_dirs": ["examples"],
-    "subsection_order": ExplicitOrder(["../../examples/drive", "../../examples/grid"]),
-    "within_subsection_order": NumberOfCodeLinesSortKey,
+    "subsection_order": ["../../examples/drive", "../../examples/grid"],
+    "within_subsection_order": "NumberOfCodeLinesSortKey",
 }
 
 exclude_patterns = ["_build", "build", "Thumbs.db", ".DS_Store"]

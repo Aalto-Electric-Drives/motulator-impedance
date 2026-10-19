@@ -76,7 +76,8 @@ class MeasurementCfg:
         cores, defaults to True. The model and the control system are copied to the
         worker processes, which can require pickling them. Lambda functions and nested
         functions (e.g., as references) cannot be pickled, but module-level functions
-        can.
+        can. In a script, call the measurement under `if __name__ == "__main__":`,
+        as in the examples.
     use_window : bool, optional
         Whether to use window function for calculating DFT, defaults to True.
 

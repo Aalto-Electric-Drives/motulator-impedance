@@ -4,15 +4,27 @@ The package requires Python 3.12 or newer. The installation of *motulator* and i
 
 ## Option 1: Use pip
 
-The simplest way to install the package is to use `pip`:
+Install the package with `pip` in a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/), which keeps the package and its dependencies separate from other Python projects. Some Linux distributions, such as Debian, do not allow installing packages into the system Python with `pip` at all. Create and activate the environment in your project folder. On Linux and macOS:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+On Windows:
+
+```bat
+py -m venv .venv
+.venv\Scripts\activate
+```
+
+Then, install the package:
 
 ```bash
 pip install motulator-impedance
 ```
 
-```{note}
-Instead of global installation described above, using a [virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments) is generally recommended.
-```
+The environment must be activated again in each new terminal.
 
 ## Option 2: Clone the Repository
 

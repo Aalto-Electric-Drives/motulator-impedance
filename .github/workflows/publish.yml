@@ -1,7 +1,8 @@
 name: Publish to PyPI
 
 # Builds the package and publishes it to PyPI when a release is published on GitHub.
-# PyPI trusts this workflow (trusted publishing), so no API token is needed.
+# The package is uploaded with the repository secret PYPI_API_TOKEN until a trusted
+# publisher for this workflow is added on PyPI; then the password line is removed.
 
 on:
   release:
@@ -48,3 +49,5 @@ jobs:
         path: dist/
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}

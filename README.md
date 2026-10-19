@@ -21,7 +21,7 @@ source .venv/bin/activate
 pip install motulator-impedance
 ```
 
-On Windows, the environment is created and activated with `py -m venv .venv` and `.venv\Scripts\activate`. The package supports *motulator* 0.15, and the support is extended after each new release of *motulator* has been tested. For development, clone the repository and install the package with `pip install -e .[dev]`.
+On Windows, the environment is created and activated with `py -m venv .venv` and `.venv\Scripts\activate`. The package supports *motulator* 0.15 and 0.16, and the support is extended after each new release of *motulator* has been tested. For development, clone the repository and install the package with `pip install -e .[dev]`.
 
 ## Usage
 

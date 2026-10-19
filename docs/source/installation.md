@@ -1,6 +1,6 @@
 # Installation
 
-The package requires Python 3.12 or newer. The installation of *motulator* and its dependencies is described in the [documentation of *motulator*](https://aalto-electric-drives.github.io/motulator/installation.html); *motulator* is installed automatically as a dependency of this package. The package supports *motulator* 0.15, and the support is extended after each new release of *motulator* has been tested.
+The package requires Python 3.12 or newer. The installation of *motulator* and its dependencies is described in the [documentation of *motulator*](https://aalto-electric-drives.github.io/motulator/installation.html); *motulator* is installed automatically as a dependency of this package. The package supports *motulator* 0.15 and 0.16, and the support is extended after each new release of *motulator* has been tested.
 
 ## Option 1: Use pip
 

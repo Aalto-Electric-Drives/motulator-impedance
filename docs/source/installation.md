@@ -1,10 +1,10 @@
 # Installation
 
-The package requires Python 3.12 or newer. The installation of *motulator* and its dependencies is described in the [documentation of *motulator*](https://aalto-electric-drives.github.io/motulator/installation.html); *motulator* is installed automatically as a dependency of this package. The package supports *motulator* 0.15 and 0.16, and the support is extended after each new release of *motulator* has been tested.
+The package requires Python 3.12 or newer, and it installs *motulator* as its dependency. It supports *motulator* 0.15 and 0.16, and the support is extended after each new release of *motulator* has been tested.
 
 ## Option 1: Use pip
 
-The simplest way to install the package is to use `pip` in a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/). On Linux and macOS:
+Install the package in a [virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/). On Linux and macOS:
 
 ```bash
 python3 -m venv .venv
@@ -12,35 +12,39 @@ source .venv/bin/activate
 pip install motulator-impedance
 ```
 
-On Windows, the environment is created and activated with `py -m venv .venv` and `.venv\Scripts\activate`.
+On Windows:
+
+```powershell
+py -m venv .venv
+.venv\Scripts\activate
+pip install motulator-impedance
+```
+
+If PowerShell does not allow running the activation script, allow it with `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`.
+
+The plots need a GUI library for *matplotlib*. On some Linux systems, it must be installed separately; see the [installation of *motulator*](https://aalto-electric-drives.github.io/motulator/installation.html).
 
 ## Option 2: Clone the Repository
 
-For developers and advanced users, cloning the repository is recommended. The following instructions are for [VS Code](https://code.visualstudio.com):
+Clone the repository to run the examples or to develop the package. On Linux and macOS:
 
-1. Install VS Code, Python, and `git` on your computer. Install also the Python extension in VS Code.
+```bash
+git clone https://github.com/Aalto-Electric-Drives/motulator-impedance
+cd motulator-impedance
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev,doc]"
+```
 
-1. Clone the project using the command:
+On Windows, create and activate the virtual environment as in Option 1. The `dev` dependencies are needed for the tests and the code checks, and the `doc` dependencies for building this documentation. In [VS Code](https://code.visualstudio.com/docs/python/environments), the virtual environment can also be created with the Python extension.
 
-   ```bash
-   git clone https://github.com/Aalto-Electric-Drives/motulator-impedance
-   ```
+Then run an example, e.g.:
 
-1. Launch VS Code from the cloned project's root directory.
+```bash
+python examples/drive/plot_45kw_im_vhz_mechanical_impedance.py
+```
 
-1. [Create a virtual environment](https://code.visualstudio.com/docs/python/environments) in the workspace.
-
-1. Install the package with its optional dependencies in the VS Code terminal, after the virtual environment is created and activated:
-
-   ```bash
-   pip install -e ".[dev,doc]"
-   ```
-
-   The `dev` dependencies are needed for the tests and the code checks and the `doc` dependencies for building this documentation.
-
-1. Now you can run the example scripts in the `examples/` folder.
-
-The tests are run with `pytest` and the documentation is built with the command:
+The tests are run with `pytest`, and the documentation is built with the command:
 
 ```bash
 sphinx-build -b html docs/source docs/build/html

@@ -28,7 +28,7 @@ def system(
 ) -> model.GridConverterSystem:
     """Grid converter system, fed by a DC bus if `u_dc` is None."""
     converter = model.VoltageSourceConverter(u_dc=u_dc)
-    dc_bus = None if u_dc else model.DCBus(C_dc=1e-3, u_dc=650, converters=[converter])
+    dc_bus = None if u_dc else model.DCBus(C_dc=1e-3, u_dc=650)
     return model.GridConverterSystem(
         converter,
         model.LFilter(L_f=0.2 * L_BASE),

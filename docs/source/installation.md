@@ -1,6 +1,6 @@
 # Installation
 
-The package requires Python 3.12 or newer, and it installs *motulator* as its dependency. It supports *motulator* 0.15, 0.16, 0.17, and 0.18, and the support is extended after each new release of *motulator* has been tested.
+The package requires Python 3.12 or newer, and it installs *motulator* as its dependency. It supports *motulator* 0.19. A new release of *motulator* is supported after it has been tested.
 
 ## Option 1: Use pip
 

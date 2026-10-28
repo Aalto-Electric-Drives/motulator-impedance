@@ -154,16 +154,13 @@ def _operating_point(
     # The PCC voltage is imposed by a stiff source with signal injection at the
     # operating point: the grid impedance is removed, and the source has the PCC
     # voltage magnitude and the frequency of the operating point. The DC bus is copied
-    # together with the converter, since it refers to the converter. The PWM settings
-    # are kept.
+    # together with the converter, since it refers to the converter. The converter
+    # keeps its modulator.
     ac_filter = deepcopy(mdl.ac_filter)
     ac_filter.L_g, ac_filter.R_g = 0.0, 0.0
     ac_source = model.ThreePhaseSourceWithSignalInjection(w_g=w_g, e_g=np.abs(u_g0))
     converter, dc_bus = deepcopy((mdl.converter, mdl.dc_bus))
-    mdl_inj = model.GridConverterSystem(
-        converter, ac_filter, ac_source, dc_bus=dc_bus, single_update=mdl.single_update
-    )
-    mdl_inj.pwm, mdl_inj.delay = deepcopy(mdl.pwm), deepcopy(mdl.delay)
+    mdl_inj = model.GridConverterSystem(converter, ac_filter, ac_source, dc_bus=dc_bus)
     ctrl_inj = deepcopy(ctrl)
     simulate(mdl_inj, ctrl_inj, t_stop, cfg.N_eval)
 

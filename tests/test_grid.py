@@ -4,6 +4,7 @@ from collections.abc import Callable
 
 import numpy as np
 import pytest
+from motulator.common.model import TwoLevelModulator
 from motulator.grid import control, model
 
 from motulator_impedance import grid
@@ -23,19 +24,16 @@ def grid_frequency(t: float) -> float:
 def system(
     u_dc: float | None = 650,
     w_g: float | Callable[[float], float] = W_NOM,
-    pwm: bool = False,
-    single_update: bool = False,
+    modulator: TwoLevelModulator | None = None,
 ) -> model.GridConverterSystem:
     """Grid converter system, fed by a DC bus if `u_dc` is None."""
-    converter = model.VoltageSourceConverter(u_dc=u_dc)
+    converter = model.VoltageSourceConverter(u_dc=u_dc, modulator=modulator)
     dc_bus = None if u_dc else model.DCBus(C_dc=1e-3, u_dc=650)
     return model.GridConverterSystem(
         converter,
         model.LFilter(L_f=0.2 * L_BASE),
         model.ThreePhaseSource(w_g=w_g, e_g=U_NOM),
         dc_bus=dc_bus,
-        pwm=pwm,
-        single_update=single_update,
     )
 
 
@@ -106,17 +104,18 @@ def test_operating_point_at_changed_grid_frequency() -> None:
     assert res.Y_dd[0] == pytest.approx(1 / (2j * np.pi * res.f_e[0] * L_f), rel=0.05)
 
 
-def test_measurement_model_keeps_pwm_settings() -> None:
-    """The model of the measurement has the PWM settings of the system model."""
-    mdl = system(pwm=True, single_update=True)
+def test_measurement_model_keeps_modulator() -> None:
+    """The converter of the measurement model has the modulator of the system."""
+    mdl = system(modulator=model.CarrierComparison(single_update=True))
     cfg = control.CurrentVectorControllerCfg(i_max=30, L=0.2 * L_BASE, T_s=1e-4)
     ctrl = control.GridConverterControlSystem(control.CurrentVectorController(cfg))
     ctrl.set_power_ref(5e3)
     ctrl.set_reactive_power_ref(0.0)
     meas_cfg = grid.MeasurementCfg(abs_u_e=0.05 * U_NOM, t0=0.02)
     mdl_inj, *_ = grid._operating_point(mdl, ctrl, meas_cfg)
-    assert mdl_inj.single_update
-    assert type(mdl_inj.pwm) is type(mdl.pwm)
+    modulator = mdl_inj.converter.modulator
+    assert isinstance(modulator, model.CarrierComparison) and modulator.single_update
+    assert modulator is not mdl.converter.modulator  # Each converter has its own
 
 
 def test_parallel_sweep_equals_serial() -> None:

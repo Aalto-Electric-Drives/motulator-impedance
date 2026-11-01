@@ -4,9 +4,9 @@ build-backend = "hatchling.build"
 
 [project]
 name = "motulator-impedance"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
-    "motulator>=0.22.0,<0.23",
+    "motulator>=0.23.0,<0.24",
     "numpy>=2.0",
     "scipy",
     "matplotlib",

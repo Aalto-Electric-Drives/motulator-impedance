@@ -140,7 +140,7 @@ def _operating_point(
     tau_M = np.append(res.mdl.machine.tau_M[k], mdl.machine.out.tau_M)
     tau_M0 = trapezoid(tau_M, t) / (t[-1] - t[0])
     operating_point = MechanicalImpedance(
-        w_M0=mdl.mechanics.meas_speed(), tau_M0=float(tau_M0)
+        w_M0=mdl.mechanics.out.w_M, tau_M0=float(tau_M0)
     )
     return mdl, ctrl, operating_point, sampling_period(res)
 

@@ -26,14 +26,8 @@ def test_mechanical_impedance_of_open_loop_vhz() -> None:
         model.VoltageSourceConverter(u_dc=540),
     )
     mdl.mechanics.set_external_rotor_speed(w_M0)
-    est_par = im_control.InductionMachineInvGammaPars(
-        n_p=n_p, R_s=0, R_R=0, L_sgm=0, L_M=np.inf
-    )
-    cfg = im_control.ObserverBasedVHzControllerCfg(
-        psi_s_nom=psi_s, i_s_max=np.inf, alpha_f=0, alpha_tau=0, alpha_psi=0
-    )
     ctrl = im_control.VHzControlSystem(
-        im_control.ObserverBasedVHzController(est_par, cfg)
+        im_control.OpenLoopVHzController(n_p, lambda w_s: 1j * w_s * psi_s)
     )
     ctrl.set_speed_ref(w_s / n_p)
     freqs = np.array([10.0, 100.0])

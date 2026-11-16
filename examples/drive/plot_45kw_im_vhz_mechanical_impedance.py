@@ -9,8 +9,6 @@ parameters correspond to [#Har2023]_.
 """
 
 # %%
-from math import inf
-
 import matplotlib.pyplot as plt
 import motulator.drive.control.im as control
 import numpy as np
@@ -46,15 +44,16 @@ mdl = model.Drive(model.InductionMachine(par), mechanics, converter)
 
 # %%
 # Configure open-loop V/Hz control without stator resistance compensation and slip
-# compensation.
+# compensation, i.e., with the linear V/Hz curve. The curve is a module-level function,
+# which can be pickled for the parallel measurement.
 
-est_par = control.InductionMachineInvGammaPars(n_p=2, R_s=0, R_R=0, L_sgm=0, L_M=inf)
-cfg = control.ObserverBasedVHzControllerCfg(
-    psi_s_nom=base.psi, i_s_max=inf, alpha_f=0, alpha_tau=0, alpha_psi=0
-)
-open_loop_ctrl = control.VHzControlSystem(
-    control.ObserverBasedVHzController(est_par, cfg)
-)
+
+def u_s_ref(w_s: float) -> complex:
+    """Stator voltage reference (V) as a function of the stator angular frequency."""
+    return 1j * w_s * base.psi
+
+
+open_loop_ctrl = control.VHzControlSystem(control.OpenLoopVHzController(2, u_s_ref))
 
 # %%
 # Configure O-V/Hz control.

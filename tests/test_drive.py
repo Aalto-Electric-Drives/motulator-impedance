@@ -22,10 +22,9 @@ def test_mechanical_impedance_of_open_loop_vhz() -> None:
     w_s, psi_s, w_M0 = 2 * pi * 25, 1.04, 70.0  # Slip 2*pi*25 - 2*70 = 17 rad/s
     mdl = model.Drive(
         model.InductionMachine(PAR),
-        model.ExternalRotorSpeed(),
+        model.ExternalRotorSpeed(w_M0),
         model.VoltageSourceConverter(u_dc=540),
     )
-    mdl.mechanics.set_external_rotor_speed(w_M0)
     ctrl = im_control.VHzControlSystem(
         im_control.OpenLoopVHzController(n_p, lambda w_s: 1j * w_s * psi_s)
     )
@@ -82,10 +81,9 @@ def test_failed_simulation_raises() -> None:
     """A simulation failing during the excitation stops the measurement."""
     mdl = model.Drive(
         model.InductionMachine(PAR),
-        model.ExternalRotorSpeed(),
+        model.ExternalRotorSpeed(70.0),
         model.VoltageSourceConverter(u_dc=540),
     )
-    mdl.mechanics.set_external_rotor_speed(70.0)
     cfg = im_control.ObserverBasedVHzControllerCfg(psi_s_nom=1.04, i_s_max=10.6)
     ctrl = _FailingControlSystem(im_control.ObserverBasedVHzController(PAR, cfg))
     ctrl.set_speed_ref(70.0)

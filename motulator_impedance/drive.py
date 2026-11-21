@@ -156,7 +156,7 @@ def _measure_at_frequency(
     """Compute the mechanical impedance at a single frequency."""
     f_e, abs_w_e = excitation
     mdl, ctrl = deepcopy(mdl0), deepcopy(ctrl0)
-    mdl.mechanics.set_external_rotor_speed(_SpeedExcitation(w_M0, abs_w_e, f_e))
+    mdl.mechanics.w_M = _SpeedExcitation(w_M0, abs_w_e, f_e)
     T = cfg.n_periods_excitation / f_e
     N_eval = evaluation_points(cfg.N_eval, f_e, T_s)
     res = simulate(mdl, ctrl, mdl.t0 + cfg.t1 + T, N_eval, f_e)

@@ -39,8 +39,7 @@ from motulator_impedance import drive
 par = model.InductionMachineInvGammaPars(
     n_p=2, R_s=60e-3, R_R=30e-3, L_sgm=2.2e-3, L_M=24.5e-3
 )
-mechanics = model.ExternalRotorSpeed()
-mechanics.set_external_rotor_speed(40.0)  # Operating-point speed (rad/s)
+mechanics = model.ExternalRotorSpeed(40.0)  # Operating-point speed (rad/s)
 mdl = model.Drive(
     model.InductionMachine(par), mechanics, model.VoltageSourceConverter(u_dc=540)
 )

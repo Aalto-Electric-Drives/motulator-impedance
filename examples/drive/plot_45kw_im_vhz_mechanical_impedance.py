@@ -37,8 +37,7 @@ w_M0 = 0.25 * base.w_M
 par = model.InductionMachineInvGammaPars(
     n_p=2, R_s=60e-3, R_R=30e-3, L_sgm=2.2e-3, L_M=24.5e-3
 )
-mechanics = model.ExternalRotorSpeed()
-mechanics.set_external_rotor_speed(w_M0)
+mechanics = model.ExternalRotorSpeed(w_M0)
 converter = model.VoltageSourceConverter(u_dc=540)
 mdl = model.Drive(model.InductionMachine(par), mechanics, converter)
 
